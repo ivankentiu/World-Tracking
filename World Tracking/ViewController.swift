@@ -32,36 +32,36 @@ class ViewController: UIViewController {
     }
 
     @IBAction func add(_ sender: Any) {
+    
         // Door
         let doorNode = SCNNode(geometry: SCNPlane(width: 0.03, height: 0.06))
         doorNode.geometry?.firstMaterial?.diffuse.contents = UIColor.brown
-        
+
         // Body
         let boxNode = SCNNode(geometry: SCNBox(width: 0.1, height: 0.1, length: 0.1, chamferRadius: 0))
         boxNode.geometry?.firstMaterial?.diffuse.contents = UIColor.blue
-        
+
         // roof
         let node = SCNNode()
         node.geometry = SCNPyramid(width: 0.1, height: 0.1, length: 0.1)
         // specular light that is reflected off of a surface ( white light ) on works if default lighting is enabled
         node.geometry?.firstMaterial?.specular.contents = UIColor.orange
         node.geometry?.firstMaterial?.diffuse.contents = UIColor.red
-        
-        // randomvalues for x, y, z
-//        let x = randomNumbers(firstNum: -0.3, secondNum: 0.3)
-//        let y = randomNumbers(firstNum: -0.3, secondNum: 0.3)
-//        let z = randomNumbers(firstNum: -0.3, secondNum: 0.3)
+
         node.position = SCNVector3(0 , 0, -0.7) // roof of the house
+        // rotation roof 180 x
+        node.eulerAngles = SCNVector3(Float(180.degreesToRadians), 0, 0)
+        
         boxNode.position = SCNVector3(0, -0.05, 0) // body of the house
         doorNode.position = SCNVector3(0, -0.02, 0.053)
-        
+
         self.sceneView.scene.rootNode.addChildNode(node)
-        
+
         // make cylinderNode a child of node
         node.addChildNode(boxNode)
         boxNode.addChildNode(doorNode)
 //        self.sceneView.scene.rootNode.addChildNode(cylinderNode)
-        
+
         
     }
     
@@ -92,5 +92,9 @@ class ViewController: UIViewController {
         return CGFloat(arc4random()) / CGFloat(UINT32_MAX) * abs(firstNum - secondNum) + min(firstNum, secondNum)
     }
     
+}
+
+extension Int {
+    var degreesToRadians: Double { return Double(self) * .pi/180}
 }
 
