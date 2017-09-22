@@ -13,15 +13,12 @@ class ViewController: UIViewController {
 
     @IBOutlet weak var sceneView: ARSCNView!
     
-    // declare config use to track the position and orientation of device relative to real world at all times (very important)
     let configuration = ARWorldTrackingConfiguration()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // debug show features points(information about features in the world around) and world origin(starting position) (if properly detected) device remember position
         self.sceneView.debugOptions = [ARSCNDebugOptions.showFeaturePoints, ARSCNDebugOptions.showWorldOrigin]
-        
-        // make sure it rans as soon as view is loaded!
         self.sceneView.session.run(configuration)
        
     }
@@ -32,25 +29,34 @@ class ViewController: UIViewController {
     }
 
     @IBAction func add(_ sender: Any) {
-        // node position in space (no shape, size, color)
         let node = SCNNode()
-        
-        // give the node a shape! (chamferRadius (how round the edges of box are)
         node.geometry = SCNBox(width: 0.1, height: 0.1, length: 0.1, chamferRadius: 0)
-        
-        // give it a color (diffuse = color of entire surface)
         node.geometry?.firstMaterial?.diffuse.contents = UIColor.blue
-        
-        // position in meters
         node.position = SCNVector3(0, 0, 0.3)
-        
-        // scene = display camera view of real world (position node here)
-        // root node exactly where the starting position is!
-        // what ever is place inside will be relative to root node
-        // it inside but where is it positioned? nowhere?
         self.sceneView.scene.rootNode.addChildNode(node)
         
         
+    }
+    
+    
+    @IBAction func reset(_ sender: Any) {
+        
+        self.restartSession()
+        
+    }
+    
+    func restartSession() {
+        // stops keeping track of position or orientation
+        self.sceneView.session.pause()
+        
+        // enumerate every single child node, and remove them
+        self.sceneView.scene.rootNode.enumerateChildNodes { (node, _) in
+            node.removeFromParentNode()
+        }
+        
+        // resetTracking forget about old starting position and make a new one base on where you are at the moment
+        // remove anchor(simple the imformation of the position and orientation of an object in sceneView(start from scratch)
+        self.sceneView.session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
     }
     
 }

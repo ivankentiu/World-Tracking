@@ -32,13 +32,27 @@
                                     <action selector="add:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Qmt-rV-L0e"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fbj-LU-o07">
+                                <rect key="frame" x="220" y="468" width="80" height="80"/>
+                                <color key="backgroundColor" red="1" green="0.80000001190000003" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="80" id="jzG-fU-KT3"/>
+                                    <constraint firstAttribute="height" constant="80" id="p2o-zC-agq"/>
+                                </constraints>
+                                <state key="normal" title="Reset"/>
+                                <connections>
+                                    <action selector="reset:" destination="BYZ-38-t0r" eventType="touchUpInside" id="zWa-HI-6NU"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="106-sU-rXy" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="038-ng-B4F"/>
                             <constraint firstItem="106-sU-rXy" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="8ca-2I-oeW"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="YGt-PX-SsV" secondAttribute="bottom" constant="20" id="I1z-UD-AiY"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Fbj-LU-o07" secondAttribute="trailing" constant="20" id="RQv-DD-PEC"/>
                             <constraint firstItem="106-sU-rXy" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="W0P-SI-Q1i"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Fbj-LU-o07" secondAttribute="bottom" constant="20" id="fak-aV-CGe"/>
                             <constraint firstItem="106-sU-rXy" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="loi-x3-Sxj"/>
                             <constraint firstItem="YGt-PX-SsV" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="xss-7S-afS"/>
                         </constraints>
