@@ -20,6 +20,9 @@ class ViewController: UIViewController {
         
         self.sceneView.debugOptions = [ARSCNDebugOptions.showFeaturePoints, ARSCNDebugOptions.showWorldOrigin]
         self.sceneView.session.run(configuration)
+        
+        // enable default lighting (light that spreads across the entire scene)
+        self.sceneView.autoenablesDefaultLighting = true
        
     }
 
@@ -30,9 +33,17 @@ class ViewController: UIViewController {
 
     @IBAction func add(_ sender: Any) {
         let node = SCNNode()
-        node.geometry = SCNBox(width: 0.1, height: 0.1, length: 0.1, chamferRadius: 0)
+        node.geometry = SCNBox(width: 0.1, height: 0.1, length: 0.1, chamferRadius: 0.03)
+        // specular light that is reflected off of a surface ( white light ) on works if default lighting is enabled
+        node.geometry?.firstMaterial?.specular.contents = UIColor.orange
         node.geometry?.firstMaterial?.diffuse.contents = UIColor.blue
-        node.position = SCNVector3(0, 0, 0.3)
+        
+        // randomvalues for x, y, z
+        let x = randomNumbers(firstNum: -0.3, secondNum: 0.3)
+        let y = randomNumbers(firstNum: -0.3, secondNum: 0.3)
+        let z = randomNumbers(firstNum: -0.3, secondNum: 0.3)
+        node.position = SCNVector3(x, y, z)
+        
         self.sceneView.scene.rootNode.addChildNode(node)
         
         
@@ -56,7 +67,13 @@ class ViewController: UIViewController {
         
         // resetTracking forget about old starting position and make a new one base on where you are at the moment
         // remove anchor(simple the imformation of the position and orientation of an object in sceneView(start from scratch)
+        self.sceneView.debugOptions = [ARSCNDebugOptions.showFeaturePoints, ARSCNDebugOptions.showWorldOrigin]
         self.sceneView.session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
+    }
+    
+    // use to place box in random directions instead of just one (random value in range that u give it)
+    func randomNumbers(firstNum: CGFloat, secondNum: CGFloat) -> CGFloat {
+        return CGFloat(arc4random()) / CGFloat(UINT32_MAX) * abs(firstNum - secondNum) + min(firstNum, secondNum)
     }
     
 }
